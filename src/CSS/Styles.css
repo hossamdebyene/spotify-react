@@ -1,0 +1,17 @@
+.center{
+    height: 100%;
+}
+.middle{
+    margin-top: 10%;
+    display: inline-flex;
+    height: 9%;
+    width: 48%;
+    border-radius: 10px;
+    border: 1px solid grey;
+    background-color: transparent;
+    text-decoration: none;
+    color: black;
+}
+.middle:hover{
+    color: black;
+}

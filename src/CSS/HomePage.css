@@ -1,0 +1,88 @@
+.type{
+    font-size: xx-large;
+    border: transparent;
+    margin: auto auto auto 4%;
+    width: 100%;
+}
+.type::placeholder{
+    text-align: center;
+    color: black;
+}
+.type:focus{
+    border: none;
+}
+.type:focus-visible{
+    border: none;
+    outline: none;
+}
+.but{
+    background-color: transparent;
+    border: none;
+    margin-right:2%;
+    font-size: xx-large;
+    color: grey;
+    padding-bottom: 1%;
+
+}
+.logo{
+    width: 5%;
+    align-self: center;
+    margin-right: 1%;
+}
+.buttonName{
+    margin: auto;
+    font-size: xx-large;
+}
+.cardimg{
+    width: 20%;
+    height: 300px;
+}
+.artistCard{
+    width: 22.7% !important;
+    margin-left: 1.15%;
+    margin-right: 1.15%;
+    margin-top: 2.30% !important;
+}
+.stars{
+    float: left;
+}
+.sub{
+    text-align: left;
+    color: grey;
+}
+.last{
+    margin-top: 2% !important;
+    margin-bottom: 0 !important;
+    text-align: left;
+    color: grey;
+}
+.tit{
+    text-align: left;
+}
+.main{
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+}
+.start{
+    margin-top: 5%;
+}
+.heading{
+    text-align: left;
+    margin-left: 2.30%;
+    font-size: xx-large;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+.subheading{
+    text-align: left;
+    margin-left: 2.30%;
+    font-size: larger;
+    color: grey;
+    font-weight: 450;
+}
+.foot{
+    color: black
+}
+.foot:hover{
+    color: black;
+}
