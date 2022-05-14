@@ -8,3 +8,8 @@ requesting get apis for getting the artists for the searched artists and retriev
 setting the retrieved data with the navigated state to retrieve data in the component
 onCLicking for the artist data of the search term and the response of the artist request api is saved in the redux state
 
+In order to run it 
+just clone the repository
+cd spotify-react
+npm install
+npm start
