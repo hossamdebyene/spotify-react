@@ -49,8 +49,9 @@ function HomePage() {
 
     // to get data of the searched Artists
     const searchArtists = useCallback(async () => {
+        console.log(tokenss)
         // request a get api to spotify
-        const { data } = await axios.get("https://api.spotify.com/v1/search", {
+        await axios.get("https://api.spotify.com/v1/search", {
             headers: {
                 Authorization: `Bearer ${tokenss}`
             },
@@ -58,9 +59,19 @@ function HomePage() {
                 q: searchKey,
                 type: "artist"
             }
-        })
+        }).catch(function (error) {
+            if (error.response.status === 401) {
+                dispatch(tokening(""))
+                navigate("/")
+            }
+          }).then(function (response) {
+            setArtists(response.data.artists.items)
+          });
         //setting artists with the response of the get api
-        setArtists(data.artists.items)
+        // if(data.status === 200){
+        //     
+        // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchKey, tokenss])
     
 
@@ -70,13 +81,20 @@ function HomePage() {
     const artistAlbum = async (e, artists) => {
         e.preventDefault()
 
-        const { data } = await axios.get(`https://api.spotify.com/v1/artists/${artists.id}/albums`, {
+        await axios.get(`https://api.spotify.com/v1/artists/${artists.id}/albums`, {
             headers: {
                 Authorization: `Bearer ${tokenss}`
             },
-        })
-        dispatch(artist({ artists:artists, searchKey: searchKey}))
-        navigate('/ArtistAlbums', {state: {artistAlbums:data.items, artist:artists }})
+        }).catch(function (error) {
+            if (error.response.status === 401) {
+                dispatch(tokening(""))
+                navigate("/")
+            }
+          }).then(function (response) {
+            dispatch(artist({ artists:artists, searchKey: searchKey}))
+            navigate('/ArtistAlbums', {state: {artistAlbums:response.data.items, artist:artists }})
+          });
+
 
     }
 
@@ -87,7 +105,19 @@ function HomePage() {
         }
         else{
             searchArtists ()
+            const data  = axios.get("https://api.spotify.com/v1/search", {
+                headers: {
+                    Authorization: `Bearer ${tokenss}`
+                },
+                params: {
+                    q: searchKey,
+                    type: "artist"
+                }
+            })
+            console.log(data)
+
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchArtists, searchKey])
     
 
