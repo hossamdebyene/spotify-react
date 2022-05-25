@@ -15,6 +15,7 @@ import { tokening, artist } from "../actions"
 
 
 function HomePage() {
+
     //for getting states from redux artist and token
     const tokenss = useSelector((state) => state.tokening)
     const Artistss = useSelector((state) => state.artist)
@@ -48,7 +49,6 @@ function HomePage() {
 
     // to get data of the searched Artists
     const searchArtists = useCallback(async () => {
-        console.log(tokenss)
         // request a get api to spotify
         await axios.get("https://api.spotify.com/v1/search", {
             headers: {
@@ -93,7 +93,15 @@ function HomePage() {
                 Authorization: `Bearer ${tokenss}`
             },
         }).catch(function (error) {
-            if (error.response.status >= 400) {
+            if (error.response.status === 400) {
+                dispatch(tokening(""))
+                navigate("/")
+            }
+            else if (error.response.status === 401) {
+                dispatch(tokening(""))
+                navigate("/")
+            }
+            else if (error.response.status === 403) {
                 dispatch(tokening(""))
                 navigate("/")
             }
