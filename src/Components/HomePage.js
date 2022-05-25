@@ -9,12 +9,15 @@ import { Card } from 'react-bootstrap'
 import { Rate } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { tokening, artist } from "../actions"
+import { Buffer } from 'buffer';
 
 
 
 
 
 function HomePage() {
+    const CLIENT_ID = "c759e373438a4a2d8611895b8fc7fdb3"
+    const CLIENT_SECRET = "11161753553e461f9cef5c97f85f4663"
 
     //for getting states from redux artist and token
     const tokenss = useSelector((state) => state.tokening)
@@ -49,6 +52,7 @@ function HomePage() {
 
     // to get data of the searched Artists
     const searchArtists = useCallback(async () => {
+        // Api call for retrieving token
         // request a get api to spotify
         await axios.get("https://api.spotify.com/v1/search", {
             headers: {
@@ -64,8 +68,17 @@ function HomePage() {
                 navigate("/")
             }
             else if (error.response.status === 401) {
-                dispatch(tokening(""))
-                navigate("/")
+                axios('https://accounts.spotify.com/api/token', {
+                    'method': 'POST',
+                    'headers': {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': 'Basic ' + (Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64').toString('base64')),
+                    },
+                    data: 'grant_type=client_credentials'
+                }).then(response => {
+                    searchArtists()
+                    dispatch(tokening(response.data.access_token))
+                })
             }
             else if (error.response.status === 403) {
                 dispatch(tokening(""))
